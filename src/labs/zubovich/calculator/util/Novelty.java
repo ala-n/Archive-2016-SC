@@ -43,7 +43,7 @@ public enum Novelty {
         return value4;
     }
 
-    public Double hasNewSWType(boolean hasNewPc, boolean hasNewOs){
+    public Double getCofficient(boolean hasNewPc, boolean hasNewOs){
         if (hasNewOs && hasNewPc) {
             return this.getValue();
         }
