@@ -4,6 +4,8 @@ import labs.zubovich.calculator.RowParam;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface RowEditorType {
 	void setValue(Object value);
@@ -16,6 +18,7 @@ public interface RowEditorType {
 		public TextEditor() {
 			text = new JTextField();
 		}
+
 
 		@Override
 		public void setValue(Object value) {
@@ -82,6 +85,55 @@ public interface RowEditorType {
 			return select;
 		}
 	}
+
+	class MultyselectType <T> implements RowEditorType{
+
+		JScrollPane scrollPane;
+		T[] values;
+		JCheckBox[] checkBoxes;
+
+		public MultyselectType(T[] values) {
+			this.values = values;
+			scrollPane = new JScrollPane();
+			scrollPane.setMinimumSize(new Dimension(200, 60));
+			JPanel container = new JPanel(new GridLayout(values.length, 1));
+			checkBoxes = new JCheckBox[values.length];
+			for(int i = 0; i < values.length ; ++i) {
+				T value = values[i];
+				JCheckBox cb = new JCheckBox(value.toString());
+				checkBoxes[i] = cb;
+				container.add(cb);
+			}
+			scrollPane.setViewportView(container);
+		}
+
+		@Override
+		public void setValue(Object value) {
+			if(value != null && value instanceof List) {
+				List<T> valuesList = (List<T>) value;
+				for (int i =0; i< checkBoxes.length ; ++i ) {
+					checkBoxes[i].setSelected(valuesList.indexOf(values[i]) >= 0);
+				}
+			}
+		}
+
+		@Override
+		public Object getValue() {
+			List<T> valuesList = new ArrayList<>();
+			for (int i =0; i< checkBoxes.length ; ++i ) {
+				if( checkBoxes[i].isSelected() ) {
+					valuesList.add(values[i]);
+				}
+			}
+			return valuesList;
+		}
+
+		@Override
+		public Component getComponent(RowParam rowParam, JTable table, Object value, boolean isSelected) {
+			return scrollPane;
+		}
+	}
+
 }
 
 

@@ -14,7 +14,6 @@ public class TableParser {
 			String line = "";
 			while ((line = br.readLine()) != null) {
 				String[] nums = line.split("[\\s ]+");
-				System.out.println("dd");
 				List<Integer> intList = new ArrayList<>();
 				intList.add(Integer.parseInt(nums[1]));
 				intList.add(Integer.parseInt(nums[2]));

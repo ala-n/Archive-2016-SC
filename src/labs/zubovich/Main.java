@@ -1,6 +1,7 @@
 package labs.zubovich;
 
 import labs.zubovich.calculator.Calculator;
+import labs.zubovich.calculator.RowParam;
 import labs.zubovich.calculator.TypicalNormCalculator;
 import labs.zubovich.dbutil.GlobalCache;
 import labs.zubovich.dbutil.TableParser;
@@ -13,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Arrays;
 
 
 public class Main extends JFrame implements ActionListener {
@@ -89,6 +91,19 @@ public class Main extends JFrame implements ActionListener {
 			jTable.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(150);
 			jTable.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(300);
 			jTable.getTableHeader().getColumnModel().getColumn(1).setCellEditor(new ValueTableCellEditor());
+
+			jTable.setRowHeight(Arrays.asList(RowParam.values()).indexOf(RowParam.DIFFICULTY_UPPER_COEF), 100);
+			jTable.setDefaultRenderer(List.class, (table, value, isSelected, hasFocus, row, column) -> {
+				java.util.List list = (java.util.List)value;
+				StringBuilder builder = new StringBuilder();
+				for(Object o : list) {
+					if(builder.length() > 0) {
+						builder.append(", ");
+					}
+					builder.append(o.toString());
+				}
+				return new JLabel(builder.toString());
+			});
 		}
 		return jTable;
 	}

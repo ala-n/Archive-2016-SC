@@ -1,9 +1,12 @@
 package labs.zubovich.calculator;
 
 import labs.zubovich.calculator.util.DevelopmentTools;
+import labs.zubovich.calculator.util.DifficultyUpperCoefficientEnum;
 import labs.zubovich.calculator.util.DificultyCategoryEnum;
 import labs.zubovich.calculator.util.StandartModuleUsageEnum;
 import labs.zubovich.ui.RowEditorType;
+
+import java.util.List;
 
 public enum RowParam {
 	LOC(
@@ -25,6 +28,11 @@ public enum RowParam {
 			"Категория сложности ПО",
 			DificultyCategoryEnum.class,
 			new RowEditorType.SelectType<>(DificultyCategoryEnum.values())
+	),
+	DIFFICULTY_UPPER_COEF(
+			"КОЭФФИЦИЕНТЫ ПОВЫШЕНИЯ СЛОЖНОСТИ ПО",
+			List.class,
+			new RowEditorType.MultyselectType<>(DifficultyUpperCoefficientEnum.values())
 	),
 
 	CoefNew("Коэфициент новизны", Double.class, new RowEditorType.NumberEditor()),

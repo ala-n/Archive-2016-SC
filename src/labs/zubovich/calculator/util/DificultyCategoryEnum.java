@@ -4,9 +4,9 @@ package labs.zubovich.calculator.util;
  * Created by Alexey on 24.05.2016.
  */
 public enum DificultyCategoryEnum {
-	FIRST("1-я", 1),
-	SECOND("2-я", 2),
-	THIRD("3-я", 3);
+	FIRST("1-я", 0),
+	SECOND("2-я", 1),
+	THIRD("3-я", 2);
 
 	String displayValuse;
 	Integer value;
@@ -20,7 +20,7 @@ public enum DificultyCategoryEnum {
 		return displayValuse;
 	}
 
-	public Integer getValue() {
+	public int getValue() {
 		return value;
 	}
 
