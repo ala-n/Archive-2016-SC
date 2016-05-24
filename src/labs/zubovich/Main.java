@@ -2,6 +2,8 @@ package labs.zubovich;
 
 import labs.zubovich.calculator.Calculator;
 import labs.zubovich.calculator.TypicalNormCalculator;
+import labs.zubovich.dbutil.GlobalCache;
+import labs.zubovich.dbutil.TableParser;
 import labs.zubovich.ui.TypicalNormTM;
 import labs.zubovich.ui.ValueTableCellEditor;
 
@@ -10,7 +12,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.File;
 
 
 public class Main extends JFrame implements ActionListener {
@@ -29,6 +31,8 @@ public class Main extends JFrame implements ActionListener {
 	private JButton calcButton =  null;
 
 	public static void main(String[] args) {
+		GlobalCache.init(GlobalCache.Key.KLOC_Map, TableParser.readTable(new File("db/KLOC.txt")));
+
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				Main thisClass = new Main();

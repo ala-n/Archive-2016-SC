@@ -1,6 +1,7 @@
 package labs.zubovich.calculator;
 
 import labs.zubovich.calculator.util.DevelopmentTools;
+import labs.zubovich.calculator.util.DificultyCategoryEnum;
 import labs.zubovich.calculator.util.StandartModuleUsageEnum;
 import labs.zubovich.ui.RowEditorType;
 
@@ -19,6 +20,11 @@ public enum RowParam {
 			"КОЭФФИЦИЕНТЫ, УЧИТЫВАЮЩИЕ СТЕПЕНЬ ИСПОЛЬЗОВАНИЯ СТАНДАРТНЫХ МОДУЛЕЙ",
 			StandartModuleUsageEnum.class,
 			new RowEditorType.SelectType<>(StandartModuleUsageEnum.values())
+	),
+	DIFICULTY(
+			"Категория сложности ПО",
+			DificultyCategoryEnum.class,
+			new RowEditorType.SelectType<>(DificultyCategoryEnum.values())
 	),
 
 	CoefNew("Коэфициент новизны", Double.class, new RowEditorType.NumberEditor()),
