@@ -33,6 +33,17 @@ public class TypicalNormCalculator implements Calculator {
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+		//// IMPORTANT!!!!!
+		int klock = 900000;
+		if(klock > 50000){
+			// для первой категории сложности
+			T_n = 0.12 * Math.pow(klock, 0.92);
+			// 2
+			T_n = 0.105 * Math.pow(klock, 0.915);
+			// 3
+			T_n = 0.092 * Math.pow(klock, 0.91);
+		}
+
 		ManHoursCounter manHoursCounter = new ManHoursCounter();
 		TimeService timeService = new TimeService();
 
