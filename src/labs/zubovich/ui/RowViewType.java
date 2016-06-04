@@ -7,13 +7,20 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * interface for value Editor&Renderer configuration descriptor
+ * */
 public interface RowViewType {
 
 	void setValue(Object value);
+
 	Object getValue();
 
 	Component getRendererComponent(RowParam rowParam, JTable table, Object value, boolean isSelected, boolean hasFocus);
+
 	Component getEditorComponent(RowParam rowParam, JTable table, Object value, boolean isSelected);
+
+	// DEFAULT Views :
 
 	class BooleanView implements RowViewType {
 
@@ -128,6 +135,10 @@ public interface RowViewType {
 		JComboBox<T> select;
 		ComboBoxModel<T> model;
 
+		public SelectType(Class<T> enumerable) {
+			this(enumerable.getEnumConstants());
+		}
+
 		public SelectType(T[] values) {
 			model = new DefaultComboBoxModel<>(values);
 			select = new JComboBox<>(model);
@@ -166,6 +177,9 @@ public interface RowViewType {
 		T[] values;
 		JCheckBox[] checkBoxes;
 
+		public MultySelectType(Class<T> enumerable) {
+			this(enumerable.getEnumConstants());
+		}
 		public MultySelectType(T[] values) {
 			this.values = values;
 			scrollPane = new JScrollPane();
@@ -215,7 +229,6 @@ public interface RowViewType {
 			return scrollPane;
 		}
 	}
-
 }
 
 

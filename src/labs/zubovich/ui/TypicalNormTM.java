@@ -5,7 +5,6 @@ import labs.zubovich.calculator.RowParam;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,44 +25,8 @@ public class TypicalNormTM extends AbstractTableModel {
 
 	public void initDefaultValues() {
 		for(RowParam param : RowParam.values()) {
-			Object value = getDefaultByClass(param.getType());
-			values.put(param, value);
+			values.put(param, param.getDefaultValue());
 		}
-	}
-
-	private Object getDefaultByClass(Class<?> clazz) {
-		if(clazz.isArray()) {
-			clazz = clazz.getComponentType();
-		}
-		if(clazz.isEnum() && clazz.getEnumConstants().length > 0) {
-			return clazz.getEnumConstants()[0];
-		}
-		if(clazz.isInstance(List.class)) {
-			try {
-				return clazz.newInstance();
-			} catch (Exception e) {
-				return null;
-			}
-		}
-		if(clazz.equals(List.class)) {
-			return Collections.emptyList();
-		}
-		if(clazz.equals(Integer.class) || clazz.equals(Short.class)) {
-			return 0;
-		}
-		if(clazz.equals(Long.class)) {
-			return 0l;
-		}
-		if(clazz.equals(Double.class)) {
-			return 0.;
-		}
-		if(clazz.equals(Float.class)) {
-			return 0f;
-		}
-		if(clazz.equals(String.class)) {
-			return "";
-		}
-		return null;
 	}
 
 	@Override
