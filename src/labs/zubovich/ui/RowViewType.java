@@ -15,6 +15,45 @@ public interface RowViewType {
 	Component getRendererComponent(RowParam rowParam, JTable table, Object value, boolean isSelected, boolean hasFocus);
 	Component getEditorComponent(RowParam rowParam, JTable table, Object value, boolean isSelected);
 
+	class BooleanView implements RowViewType {
+
+		private JPanel container;
+		private JCheckBox checkBox;
+
+		public BooleanView() {
+			checkBox = new JCheckBox();
+			container = new JPanel(new FlowLayout());
+			container.add(checkBox);
+		}
+
+		@Override
+		public void setValue(Object value) {
+			if(value == null) {
+				value = Boolean.FALSE;
+			}
+			if(value instanceof Boolean) {
+				checkBox.setSelected((Boolean)value);
+			}
+		}
+
+		@Override
+		public Object getValue() {
+			return checkBox.isSelected();
+		}
+
+		@Override
+		public Component getRendererComponent(RowParam rowParam, JTable table, Object value, boolean isSelected, boolean hasFocus) {
+			setValue(value);
+			return container;
+		}
+
+		@Override
+		public Component getEditorComponent(RowParam rowParam, JTable table, Object value, boolean isSelected) {
+			setValue(value);
+			return container;
+		}
+	}
+
 	class TextView implements RowViewType {
 		private JTextField text;
 
