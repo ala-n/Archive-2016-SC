@@ -10,6 +10,16 @@ import labs.zubovich.ui.RowViewType;
 import java.util.List;
 
 public enum RowParam {
+	AVG_SALARY (
+			"Средняя ЗП",
+			Double.class,
+			new RowViewType.NumberView(0, Double.MAX_VALUE)
+	),
+	TEAM_SIZE(
+			"Человек в комманде",
+			Integer.class,
+			new RowViewType.NumberView(0, 1000000)
+	),
 	LOC(
 			"Количество строк кода на выбранном языке написания алгоритма",
 			Integer.class,

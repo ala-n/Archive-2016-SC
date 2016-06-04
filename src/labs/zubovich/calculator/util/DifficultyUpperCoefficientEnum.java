@@ -1,5 +1,7 @@
 package labs.zubovich.calculator.util;
 
+import java.util.List;
+
 /**
  * Created by Alexey on 24.05.2016.
  */
@@ -30,5 +32,9 @@ public enum DifficultyUpperCoefficientEnum {
 	@Override
 	public String toString() {
 		return displayValue;
+	}
+
+	public static Double getValue(List<DifficultyUpperCoefficientEnum> list) {
+		return list.stream().mapToDouble(v -> v.getValue()).sum();
 	}
 }

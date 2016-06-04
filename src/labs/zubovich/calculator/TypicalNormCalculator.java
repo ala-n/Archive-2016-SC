@@ -1,7 +1,10 @@
 package labs.zubovich.calculator;
 
+import labs.zubovich.calculator.util.DevelopmentTools;
+import labs.zubovich.calculator.util.DifficultyUpperCoefficientEnum;
 import labs.zubovich.calculator.util.DificultyCategoryEnum;
 import labs.zubovich.calculator.util.ManHoursCounter;
+import labs.zubovich.calculator.util.StandartModuleUsageEnum;
 import labs.zubovich.calculator.util.TimeEntity;
 import labs.zubovich.calculator.util.TimeService;
 import labs.zubovich.dbutil.GlobalCache;
@@ -47,20 +50,28 @@ public class TypicalNormCalculator implements Calculator {
 			return "Введены не все данные";
 		}
 
-		double T_n = getT_n(loc, dificultyCategoryEnum); // нормативная трудоемкость
+		Integer T_n = getT_n(loc, dificultyCategoryEnum); // нормативная трудоемкость
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		double teamNumber = 4.0;
-		double averageSalary = 5.0; // $$$ много бачей $$$
+		Double K_c = 1.0 + DifficultyUpperCoefficientEnum.getValue(
+				(List<DifficultyUpperCoefficientEnum>) params.get(RowParam.DIFFICULTY_UPPER_COEF)
+		);
 
+		//TODO: need to be verified and updated
+		Double K_ur = ((DevelopmentTools)params.get(RowParam.PROGRAM_LANGUAGE)).getIBM_PC_OR_WIN(); // коэфицент средств разработки по
 
-		double K_c = 1.11; // коэфицент повышения сложности
+		Double K_t = ((StandartModuleUsageEnum)params.get(RowParam.STANDART_USAGES_K)).getK();
+
+		// double K_c = 1.11; // коэфицент повышения сложности
+		// double K_t = 0.9; // коэфицент использования стандартных модулей
+
+		//TODO: need to be updated : Calc of this value are more difficult then it expected. need to be reviewed is all values exists on UI
 		double K_n = 0.63; // коэфициент новизны
-		double K_ur = 1; // коэфицент средств разработки по
-		double K_t = 0.9; // коэфицент использования стандартных модулей
+
 		double K_t_default = 1.0; // нет K_t
 
+		//TODO: need to be updated
 		// K_ti - K_тз,K_эп,K_тп,K_рп,K_вн - коэфиценты соответствующих стадий разработки
 		double K_tz = 0.08;
 		double K_ep = 0.19;
@@ -68,8 +79,9 @@ public class TypicalNormCalculator implements Calculator {
 		double K_rp = 0.34;
 		double K_vn = 0.11;
 
+		Integer teamNumber = (Integer) params.get(RowParam.TEAM_SIZE);
+		Double  averageSalary = (Double) params.get(RowParam.AVG_SALARY);
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 		ManHoursCounter manHoursCounter = new ManHoursCounter();
 		TimeService timeService = new TimeService();
@@ -84,7 +96,8 @@ public class TypicalNormCalculator implements Calculator {
 
 		double result = manHoursCounter.countForSinglePerson(timeEntity);
 
-		System.out.println(result);
-		return params.toString();
+		//TODO: team size & salary usage
+
+		return result;
 	}
 }
