@@ -26,7 +26,7 @@ public class Main extends JFrame implements ActionListener {
 
 	private JPanel jContentPane = null;
 	private JPanel jResultPane = null;
-	private JPanel jTablePane = null;
+	private JScrollPane jTablePane = null;
 	private JTable jTable = null;
 
 	private JTextField resultTextField = null;
@@ -37,9 +37,10 @@ public class Main extends JFrame implements ActionListener {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				Main thisClass = new Main();
-				thisClass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				thisClass.setVisible(true);
+				Main frame = new Main();
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.setLocationRelativeTo(null);
+				frame.setVisible(true);
 			}
 		});
 	}
@@ -50,9 +51,10 @@ public class Main extends JFrame implements ActionListener {
 	}
 
 	private void initialize() {
-		this.setSize(500, 500);
+		this.setMinimumSize(new Dimension(500, 400));
 		this.setContentPane(getJContentPane());
 		this.setTitle("Подсчет стоимости проекта по типовам нормам");
+		this.pack();
 	}
 
 	private JPanel getJContentPane() {
@@ -65,13 +67,27 @@ public class Main extends JFrame implements ActionListener {
 		return jContentPane;
 	}
 
-	private JPanel getJTablePane() {
+	private JScrollPane getJTablePane() {
 		if (jTablePane == null) {
-			jTablePane = new JPanel();
-			jTablePane.setOpaque(false);
-			jTablePane.setLayout(new BorderLayout());
-			jTablePane.add(getJTable(), BorderLayout.CENTER);
-			jTablePane.add(getJTable().getTableHeader(), BorderLayout.NORTH);
+			jTablePane = new JScrollPane(getJTable()) {
+				{
+					this.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+					this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+					this.setOpaque(false);
+					this.setBorder(null);
+					this.setViewportBorder(null);
+					this.setHorizontalScrollBar(null);
+				}
+
+				@Override
+				public Dimension getPreferredSize() {
+					Dimension tablePreferredSize = getJTable().getPreferredSize();
+					Dimension tableHeaderPreferredSize = getJTable().getTableHeader().getPreferredSize();
+					int width = (int)tablePreferredSize.getWidth();
+					int height = 3 + (int)tableHeaderPreferredSize.getHeight() + (int)tablePreferredSize.getHeight();
+					return new Dimension(width, height);
+				}
+			};
 		}
 		return jTablePane;
 	}
@@ -82,6 +98,7 @@ public class Main extends JFrame implements ActionListener {
 
 			jTable.setShowGrid(true);
 			jTable.setRowHeight(34);
+			jTable.setBackground(Color.WHITE);
 			jTable.setCellSelectionEnabled(false);
 
 			jTable.getTableHeader().getColumnModel().getColumn(0).setCellRenderer(new MultyLineCellRenderer(false));
@@ -89,11 +106,11 @@ public class Main extends JFrame implements ActionListener {
 
 
 			ValueTableCellView valueTableCellView = new ValueTableCellView();
-			jTable.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(300);
+			jTable.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(525);
 			jTable.getTableHeader().getColumnModel().getColumn(1).setCellEditor(valueTableCellView);
 			jTable.getTableHeader().getColumnModel().getColumn(1).setCellRenderer(valueTableCellView);
 
-			jTable.setRowHeight(Arrays.asList(RowParam.values()).indexOf(RowParam.DIFFICULTY_UPPER_COEF), 100);
+			jTable.setRowHeight(Arrays.asList(RowParam.values()).indexOf(RowParam.DIFFICULTY_UPPER_COEF), 170);
 		}
 		return jTable;
 	}

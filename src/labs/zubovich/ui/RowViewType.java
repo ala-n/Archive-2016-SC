@@ -160,35 +160,40 @@ public interface RowViewType {
 		@Override
 		public Component getRendererComponent(RowParam rowParam, JTable table, Object value, boolean isSelected, boolean hasFocus) {
 			setValue(value);
+			select.setBackground(table.getBackground());
 			return select;
 		}
 
 		@Override
 		public Component getEditorComponent(RowParam rowParam, JTable table, Object value, boolean isSelected) {
 			setValue(value);
+			select.setBackground(table.getBackground());
 			return select;
 		}
 
 	}
 
-	class MultySelectType<T> implements RowViewType {
+	class MultiSelectType<T> implements RowViewType {
 
 		JScrollPane scrollPane;
 		T[] values;
 		JCheckBox[] checkBoxes;
 
-		public MultySelectType(Class<T> enumerable) {
+		public MultiSelectType(Class<T> enumerable) {
 			this(enumerable.getEnumConstants());
 		}
-		public MultySelectType(T[] values) {
+		public MultiSelectType(T[] values) {
 			this.values = values;
 			scrollPane = new JScrollPane();
 			scrollPane.setMinimumSize(new Dimension(200, 60));
+			scrollPane.getViewport().setOpaque(false);
 			JPanel container = new JPanel(new GridLayout(values.length, 1));
+			container.setOpaque(false);
 			checkBoxes = new JCheckBox[values.length];
 			for(int i = 0; i < values.length ; ++i) {
 				T value = values[i];
 				JCheckBox cb = new JCheckBox(value.toString());
+				cb.setOpaque(false);
 				checkBoxes[i] = cb;
 				container.add(cb);
 			}
@@ -219,12 +224,14 @@ public interface RowViewType {
 
 		@Override
 		public Component getRendererComponent(RowParam rowParam, JTable table, Object value, boolean isSelected, boolean hasFocus) {
+			scrollPane.setBackground(table.getBackground());
 			setValue(value);
 			return scrollPane;
 		}
 
 		@Override
 		public Component getEditorComponent(RowParam rowParam, JTable table, Object value, boolean isSelected) {
+			scrollPane.setBackground(table.getBackground());
 			setValue(value);
 			return scrollPane;
 		}

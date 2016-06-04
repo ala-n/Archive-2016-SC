@@ -50,9 +50,9 @@ public enum RowParam {
 			new RowViewType.SelectType<>(DificultyCategoryEnum.class)
 	),
 	DIFFICULTY_UPPER_COEF(
-			"КОЭФФИЦИЕНТЫ ПОВЫШЕНИЯ СЛОЖНОСТИ ПО",
+			"Коэффициенты повышения сложности ПО",
 			List.class,
-			new RowViewType.MultySelectType<>(DifficultyUpperCoefficientEnum.class)
+			new RowViewType.MultiSelectType<>(DifficultyUpperCoefficientEnum.class)
 	),
 	NOVELTY_COEFFICIENT(
 			"Коэфициент новизны",
@@ -74,7 +74,7 @@ public enum RowParam {
 	 *     Text(String)                         - {@link RowViewType.TextView}
 	 *     Number                               - {@link RowViewType.NumberView}  (can support Double or Integer value)
 	 *     Select(Dropdown) from Array or Enum  - {@link RowViewType.SelectType}
-	 *     Multy Select from Array or Enum      - {@link RowViewType.MultySelectType}
+	 *     Multy Select from Array or Enum      - {@link RowViewType.MultiSelectType}
 	 * */
 	RowParam(String title, Class<?> type, RowViewType editorType) {
 		this(title, type, editorType, TypeUtils.getDefaultByClass(type));
@@ -89,7 +89,7 @@ public enum RowParam {
 	 *     Text(String)                         - {@link RowViewType.TextView}
 	 *     Number                               - {@link RowViewType.NumberView}  (can support Double or Integer value)
 	 *     Select(Dropdown) from Array or Enum  - {@link RowViewType.SelectType}
-	 *     Multy Select from Array or Enum      - {@link RowViewType.MultySelectType}
+	 *     Multy Select from Array or Enum      - {@link RowViewType.MultiSelectType}
 	 *  @param defaultValue - default field value
 	 * */
 	RowParam(String title, Class<?> type, RowViewType editorType, Object defaultValue) {
