@@ -5,11 +5,11 @@ import labs.zubovich.calculator.RowParam;
 import labs.zubovich.calculator.TypicalNormCalculator;
 import labs.zubovich.dbutil.GlobalCache;
 import labs.zubovich.dbutil.TableParser;
+import labs.zubovich.ui.MultyLineCellRenderer;
 import labs.zubovich.ui.TypicalNormTM;
-import labs.zubovich.ui.ValueTableCellEditor;
+import labs.zubovich.ui.ValueTableCellView;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,8 +52,7 @@ public class Main extends JFrame implements ActionListener {
 	private void initialize() {
 		this.setSize(500, 500);
 		this.setContentPane(getJContentPane());
-		this.setTitle("Beautiful Clock Calendar");
-		//this.setUndecorated(true);
+		this.setTitle("Подсчет стоимости проекта по типовам нормам");
 	}
 
 	private JPanel getJContentPane() {
@@ -82,28 +81,19 @@ public class Main extends JFrame implements ActionListener {
 			jTable = new JTable(model);
 
 			jTable.setShowGrid(true);
-			jTable.setRowHeight(28);
+			jTable.setRowHeight(34);
 			jTable.setCellSelectionEnabled(false);
 
-			DefaultTableCellRenderer keyRenderer = new DefaultTableCellRenderer();
-			keyRenderer.setHorizontalAlignment(JLabel.CENTER);
-			jTable.getTableHeader().getColumnModel().getColumn(0).setCellRenderer(keyRenderer);
+			jTable.getTableHeader().getColumnModel().getColumn(0).setCellRenderer(new MultyLineCellRenderer(false));
 			jTable.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(150);
+
+
+			ValueTableCellView valueTableCellView = new ValueTableCellView();
 			jTable.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(300);
-			jTable.getTableHeader().getColumnModel().getColumn(1).setCellEditor(new ValueTableCellEditor());
+			jTable.getTableHeader().getColumnModel().getColumn(1).setCellEditor(valueTableCellView);
+			jTable.getTableHeader().getColumnModel().getColumn(1).setCellRenderer(valueTableCellView);
 
 			jTable.setRowHeight(Arrays.asList(RowParam.values()).indexOf(RowParam.DIFFICULTY_UPPER_COEF), 100);
-			jTable.setDefaultRenderer(List.class, (table, value, isSelected, hasFocus, row, column) -> {
-				java.util.List list = (java.util.List)value;
-				StringBuilder builder = new StringBuilder();
-				for(Object o : list) {
-					if(builder.length() > 0) {
-						builder.append(", ");
-					}
-					builder.append(o.toString());
-				}
-				return new JLabel(builder.toString());
-			});
 		}
 		return jTable;
 	}
@@ -139,6 +129,7 @@ public class Main extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		jTable.editingStopped(null);
 		resultTextField.setText(calculator.calculate(model.fetch()).toString());
 	}
 

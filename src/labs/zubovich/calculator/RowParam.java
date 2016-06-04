@@ -3,8 +3,9 @@ package labs.zubovich.calculator;
 import labs.zubovich.calculator.util.DevelopmentTools;
 import labs.zubovich.calculator.util.DifficultyUpperCoefficientEnum;
 import labs.zubovich.calculator.util.DificultyCategoryEnum;
+import labs.zubovich.calculator.util.Novelty;
 import labs.zubovich.calculator.util.StandartModuleUsageEnum;
-import labs.zubovich.ui.RowEditorType;
+import labs.zubovich.ui.RowViewType;
 
 import java.util.List;
 
@@ -12,48 +13,39 @@ public enum RowParam {
 	LOC(
 			"Количество строк кода на выбранном языке написания алгоритма",
 			Integer.class,
-			new RowEditorType.NumberEditor()
+			new RowViewType.NumberView(0, Integer.MAX_VALUE)
 	),
 	PROGRAM_LANGUAGE(
 			"Язык написания алгоритма",
 			DevelopmentTools.class,
-			new RowEditorType.SelectType<>(DevelopmentTools.values())
+			new RowViewType.SelectType<>(DevelopmentTools.values())
 	),
 	STANDART_USAGES_K(
 			"Коэфиценты, учтывающие степень использования стандартных модулей",
 			StandartModuleUsageEnum.class,
-			new RowEditorType.SelectType<>(StandartModuleUsageEnum.values())
+			new RowViewType.SelectType<>(StandartModuleUsageEnum.values())
 	),
 	DIFICULTY(
 			"Категория сложности ПО",
 			DificultyCategoryEnum.class,
-			new RowEditorType.SelectType<>(DificultyCategoryEnum.values())
+			new RowViewType.SelectType<>(DificultyCategoryEnum.values())
 	),
 	DIFFICULTY_UPPER_COEF(
 			"КОЭФФИЦИЕНТЫ ПОВЫШЕНИЯ СЛОЖНОСТИ ПО",
 			List.class,
-			new RowEditorType.MultyselectType<>(DifficultyUpperCoefficientEnum.values())
+			new RowViewType.MultySelectType<>(DifficultyUpperCoefficientEnum.values())
 	),
 	NOVELTY_COEFFICIENT(
 			"Коэфициент новизны",
 			Novelty.class,
-			new RowEditorType.SelectType<>(Novelty.values())
+			new RowViewType.SelectType<>(Novelty.values())
 	);
-
-//	CoefNew("Коэфициент новизны", Double.class, new RowEditorType.NumberEditor()),
-//	Test("Test", Boolean.class, new RowEditorType.TextEditor());
 
 	private String title;
 	private Class<?> type;
-	private RowEditorType editorType;
+	private RowViewType editorType;
 
-	RowParam(String title, Class<?> type) {
-		this.title = title;
-		this.type = type;
-		this.editorType = null;
-	}
-
-	RowParam(String title, Class<?> type, RowEditorType editorType) {
+	RowParam(String title, Class<?> type, RowViewType editorType) {
 		this.title = title;
 		this.type = type;
 		this.editorType = editorType;
@@ -67,7 +59,7 @@ public enum RowParam {
 		return type;
 	}
 
-	public RowEditorType getEditorType() {
+	public RowViewType getViewType() {
 		return editorType;
 	}
 }

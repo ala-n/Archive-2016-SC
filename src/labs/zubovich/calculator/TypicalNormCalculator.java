@@ -43,7 +43,7 @@ public class TypicalNormCalculator implements Calculator {
 
 		DificultyCategoryEnum dificultyCategoryEnum = (DificultyCategoryEnum) params.get(RowParam.DIFICULTY);
 		Integer loc = (Integer) params.get(RowParam.LOC);
-		if(loc == 0 || dificultyCategoryEnum == null ) {
+		if(loc == null || loc == 0 || dificultyCategoryEnum == null ) {
 			return "Введены не все данные";
 		}
 
