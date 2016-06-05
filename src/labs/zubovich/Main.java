@@ -5,7 +5,7 @@ import labs.zubovich.calculator.RowParam;
 import labs.zubovich.calculator.TypicalNormCalculator;
 import labs.zubovich.dbutil.GlobalCache;
 import labs.zubovich.dbutil.TableParser;
-import labs.zubovich.ui.MultyLineCellRenderer;
+import labs.zubovich.ui.MultylineCellRenderer;
 import labs.zubovich.ui.TypicalNormTM;
 import labs.zubovich.ui.ValueTableCellView;
 
@@ -101,7 +101,7 @@ public class Main extends JFrame implements ActionListener {
 			jTable.setBackground(Color.WHITE);
 			jTable.setCellSelectionEnabled(false);
 
-			jTable.getTableHeader().getColumnModel().getColumn(0).setCellRenderer(new MultyLineCellRenderer(false));
+			jTable.getTableHeader().getColumnModel().getColumn(0).setCellRenderer(new MultylineCellRenderer(false));
 			jTable.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(150);
 
 

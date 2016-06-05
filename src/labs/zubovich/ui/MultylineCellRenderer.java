@@ -8,15 +8,15 @@ import java.awt.*;
 /**
  * Created by Alexey on 04.06.2016.
  */
-public class MultyLineCellRenderer extends JTextArea implements TableCellRenderer {
+public class MultylineCellRenderer extends JTextArea implements TableCellRenderer {
 
 	private boolean canHighlighted;
 
-	public MultyLineCellRenderer(){
+	public MultylineCellRenderer(){
 		this(true);
 	}
 
-	public MultyLineCellRenderer(boolean canHiglighted) {
+	public MultylineCellRenderer(boolean canHiglighted) {
 		setCanHighlighted(canHiglighted);
 		setLineWrap(true);
 		setWrapStyleWord(true);
