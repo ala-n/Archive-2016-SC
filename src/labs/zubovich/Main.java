@@ -104,7 +104,6 @@ public class Main extends JFrame implements ActionListener {
 			jTable.getTableHeader().getColumnModel().getColumn(0).setCellRenderer(new MultylineCellRenderer(false));
 			jTable.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(150);
 
-
 			ValueTableCellView valueTableCellView = new ValueTableCellView();
 			jTable.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(525);
 			jTable.getTableHeader().getColumnModel().getColumn(1).setCellEditor(valueTableCellView);
