@@ -111,6 +111,7 @@ public class Main extends JFrame implements ActionListener {
 			jTable.getTableHeader().getColumnModel().getColumn(1).setCellRenderer(valueTableCellView);
 
 			jTable.setRowHeight(Arrays.asList(RowParam.values()).indexOf(RowParam.DIFFICULTY_UPPER_COEF), 170);
+			jTable.setRowHeight(Arrays.asList(RowParam.values()).indexOf(RowParam.STANDART_USAGES_K), 75);
 		}
 		return jTable;
 	}

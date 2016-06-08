@@ -3,6 +3,7 @@ package labs.zubovich.calculator;
 import labs.zubovich.calculator.util.*;
 import labs.zubovich.dbutil.GlobalCache;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
 public class TypicalNormCalculator implements Calculator {
 
 	private Integer getT_n(Integer loc, DificultyCategoryEnum dificultyCategoryEnum) {
-		if(loc <= 50000){
+		if(loc >= 300 && loc <= 50000){
 			Map<Integer, List<Integer>> LOCMap = (Map<Integer, List<Integer>>) GlobalCache.get(GlobalCache.Key.KLOC_Map);
 
 			Integer targKey = LOCMap.keySet()
@@ -83,9 +84,10 @@ public class TypicalNormCalculator implements Calculator {
 
 		Double K_t = ((StandartModuleUsageEnum)params.get(RowParam.STANDART_USAGES_K)).getK();
 
-        //TODO: getCofficient params should be replaced with real values
-        //TODO: need to be updated : Calc of this value are more difficult then it expected. need to be reviewed is all values exists on UI
-		Double K_n = ((Novelty)params.get(RowParam.NOVELTY_COEFFICIENT)).getCofficient(false, false);
+		Boolean hasNewPC = (Boolean) params.get(RowParam.HAS_NEW_PC);
+		Boolean hasNewOS = (Boolean) params.get(RowParam.HAS_NEW_OS);
+
+		Double K_n = ((Novelty)params.get(RowParam.NOVELTY_COEFFICIENT)).getCofficient(hasNewPC, hasNewOS);
 
         Map<String, Double> stageCoefficients = getStageCoefficients(((Novelty)params.get(RowParam.NOVELTY_COEFFICIENT)).name());
 		double K_tz = stageCoefficients.get("K_tz");
@@ -96,7 +98,7 @@ public class TypicalNormCalculator implements Calculator {
 
         double K_t_default = 1.0;
 
-		Integer teamNumber = (Integer) params.get(RowParam.TEAM_SIZE);
+		Integer teamNumber = 1;//(Integer) params.get(RowParam.TEAM_SIZE);
 		Double  averageSalary = (Double) params.get(RowParam.AVG_SALARY);
 
 		ManHoursCounter manHoursCounter = new ManHoursCounter();
@@ -112,9 +114,9 @@ public class TypicalNormCalculator implements Calculator {
 
 		double result = manHoursCounter.countForSinglePerson(timeEntity);
 
-        //TODO: team size & salary usage
         result = result/teamNumber * averageSalary;
 
-		return result;
+		DecimalFormat outputFormat = new DecimalFormat("###.##");
+		return outputFormat.format(result);
 	}
 }

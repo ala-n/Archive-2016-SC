@@ -18,16 +18,16 @@ import java.util.List;
  * */
 public enum RowParam {
 	AVG_SALARY (
-			"Средняя ЗП",
+			"Стоимость человека-дня",
 			Double.class,
 			new RowViewType.NumberView(0, Double.MAX_VALUE)
 	),
-	TEAM_SIZE(
-			"Человек в комманде",
-			Integer.class,
-			new RowViewType.NumberView(1, 1000000),
-			1
-	),
+//	TEAM_SIZE(
+//			"Человек в комманде",
+//			Integer.class,
+//			new RowViewType.NumberView(1, 1000000),
+//			1
+//	),
 	LOC(
 			"Количество строк кода на выбранном языке написания алгоритма",
 			Integer.class,
@@ -53,6 +53,16 @@ public enum RowParam {
 			"Коэффициенты повышения сложности ПО",
 			List.class,
 			new RowViewType.MultiSelectType<>(DifficultyUpperCoefficientEnum.class)
+	),
+	HAS_NEW_PC(
+			"На основе нового типа ПК",
+			Boolean.class,
+			new RowViewType.BooleanView()
+	),
+	HAS_NEW_OS(
+			"В среде новой ОС",
+			Boolean.class,
+			new RowViewType.BooleanView()
 	),
 	NOVELTY_COEFFICIENT(
 			"Коэфициент новизны",

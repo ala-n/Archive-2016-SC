@@ -39,6 +39,9 @@ public abstract class TypeUtils {
 		if(clazz.equals(String.class)) {
 			return "";
 		}
+		if(clazz.equals(Boolean.class)) {
+			return Boolean.FALSE;
+		}
 		return null;
 	}
 }
