@@ -1,16 +1,22 @@
 package labs.zubovich.dbutil;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.TreeMap;
 
 public class TableParser {
 
-	public static Map<Integer, List<Integer>> readTable(File file) {
-		Map<Integer, List<Integer>> result = new HashMap<>();
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+	/**
+	 * Take attention TreeMap so the keyset is sorted
+	 * */
+	public static TreeMap<Integer, List<Integer>> readTable(URL url) {
+		TreeMap<Integer, List<Integer>> result = new TreeMap<>();
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
 			String line = "";
 			while ((line = br.readLine()) != null) {
 				String[] nums = line.split("[\\s ]+");
@@ -27,5 +33,4 @@ public class TableParser {
 		}
 		return result;
 	}
-
 }

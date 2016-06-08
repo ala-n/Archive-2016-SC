@@ -9,7 +9,7 @@ import java.util.Map;
 public class GlobalCache {
 
 	public enum Key {
-		KLOC_Map
+		KLOC_Map // {TreeMap}
 	}
 
 	private static Map<Key, Object> cache = new HashMap<>();

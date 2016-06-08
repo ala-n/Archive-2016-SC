@@ -1,12 +1,20 @@
 package labs.zubovich.calculator;
 
-import labs.zubovich.calculator.util.*;
+import labs.zubovich.calculator.util.DevelopmentTools;
+import labs.zubovich.calculator.util.DifficultyUpperCoefficientEnum;
+import labs.zubovich.calculator.util.DificultyCategoryEnum;
+import labs.zubovich.calculator.util.ManHoursCounter;
+import labs.zubovich.calculator.util.Novelty;
+import labs.zubovich.calculator.util.StandartModuleUsageEnum;
+import labs.zubovich.calculator.util.TimeEntity;
+import labs.zubovich.calculator.util.TimeService;
 import labs.zubovich.dbutil.GlobalCache;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Alexey on 25.04.2016.
@@ -15,11 +23,11 @@ public class TypicalNormCalculator implements Calculator {
 
 	private Integer getT_n(Integer loc, DificultyCategoryEnum dificultyCategoryEnum) {
 		if(loc >= 300 && loc <= 50000){
-			Map<Integer, List<Integer>> LOCMap = (Map<Integer, List<Integer>>) GlobalCache.get(GlobalCache.Key.KLOC_Map);
+			TreeMap<Integer, List<Integer>> LOCMap = (TreeMap<Integer, List<Integer>>) GlobalCache.get(GlobalCache.Key.KLOC_Map);
 
+			//NOTE: sorting is no needed anymore;
 			Integer targKey = LOCMap.keySet()
 					.stream()
-					.sorted()
 					.filter(x -> (x >= loc))
 					.findFirst().orElse(null);
 
